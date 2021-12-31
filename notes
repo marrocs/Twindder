@@ -4,9 +4,10 @@ Frete dating_app v.1 notes
     Problems:
         1 - Difficult to work with classes. How to add profiles to a 'liked list users'?
             I've created a method called 'like person' that should take only one argument ('profile'),
-            but in fact it take two ('self' and 'profile').
+            but in fact it requires two ('self' and 'profile') and idk how to solve this.
 
-            I thought one way
+            I thought one way i could handle this is create a list of dictionary using a counter
+            as key and others infos as values.
 
         2 - How to check for matching users?
 
