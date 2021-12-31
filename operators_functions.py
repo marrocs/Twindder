@@ -1,5 +1,6 @@
 from class_user import *
 from main import *
+from random import randint
 
 
 def create_user():
@@ -29,12 +30,13 @@ def check_senha(senha):
 
 
 def list_profiles():
-    for perfil in profiles_catalog:
-        print(perfil.nome)
+    perfil = profiles_catalog[randint(0, len(profiles_catalog)-1)].nome
+    print(perfil)
 
-        acao2 = input('O que achou da pessoa acima? (s/n)')
+    acao2 = input('O que achou da pessoa acima? (s/n)')
 
-        if acao2 == 's':
-            User.like_person(perfil)
-        else:
-            list_profiles()
+    if acao2 == 's':
+        User.like_person(perfil)
+        list_profiles()
+    else:
+        list_profiles()
