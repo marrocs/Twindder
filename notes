@@ -1,0 +1,15 @@
+Frete dating_app v.1 notes
+
+    (31/12/21)
+    Problems:
+        1 - Difficult to work with classes. How to add profiles to a 'liked list users'?
+            I've created a method called 'like person' that should take only one argument ('profile'),
+            but in fact it take two ('self' and 'profile').
+
+            I thought one way
+
+        2 - How to check for matching users?
+
+    Improvings:
+        1 - Login system
+        2 - DataBase implementation
