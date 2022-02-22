@@ -14,3 +14,28 @@ Frete dating_app v.1 notes
     Improvings:
         1 - Login system
         2 - DataBase implementation
+
+(21/02/22)
+Problems:
+        1 - "  File "c:\Users\Lucas\Documents\LUCAS\SOFTWARES\CODIGOS\PYTHON\FreteDatingApp\main.py", line 33, in <module>
+    main()
+  File "c:\Users\Lucas\Documents\LUCAS\SOFTWARES\CODIGOS\PYTHON\FreteDatingApp\main.py", line 20, in main
+    User.login(nome, senha)
+  File "c:\Users\Lucas\Documents\LUCAS\SOFTWARES\CODIGOS\PYTHON\FreteDatingApp\class_user.py", line 27, in login
+    if nome == main.profiles_catalog.user.nome:
+AttributeError: 'list' object has no attribute 'user'"
+
+        Como lidar? o objeto 'profile_catalog' não tem atributo 'user'
+
+(22/02/22)
+Problemas:
+        1 - Script entra em loop quando action1 == 2; 
+        2 - Ainda com problemas em localizar e verificar as informações da função 'login()' com as dos objetos da classe User;
+
+Resoluções:
+        1 - Resolução do problema de 21/02/22 - consertei o loop for de 'login()' e passei a procurar por perfil na lista de perfis a partir do index do objeto no array;
+
+Modificações:
+        1 - Alteração no loop for de 'login()'. Implementada busca por index no array 'profiles_catalog';
+        2 - Funções de 'operators_functions' foram integradas ao arquivo 'main' ou à classe User;
+        3 - Deletado o arquivo 'operators_functions';
