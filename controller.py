@@ -1,11 +1,11 @@
+from ast import Break
 from models import *
 import json
 
 # --- to do: change 'profiles_catalog' data set from list to dict? --- 
 profiles_catalog = []
-show_profiles = False
 
-def main():
+def controller():
 
     def create_user(name, password) -> str:
 
@@ -19,42 +19,20 @@ def main():
         return user
     
     def login(name, password):
+        pass
         
-        print(f'(l;19) TESTE: função iniciada. Total: {len(profiles_catalog)} usuarios cadastrados')
+    def show_random_profile():
 
-        for profile in profiles_catalog:
-            if profile.name == name:
-                print('Usuario encontrado')
-                if profile.password == password:
-                    main.show_profiles = True
-                    print('Login autorizado')
-                    act1 == 4
-
-                else:
-                    print('Acesso negado')
-                    main.act1 = int(input('Type\n1 to create user\n2 to login\n3 to exit ')) 
-            else:
-                print('Nome de usuario incorreto')
-                main.act1 = int(input('Type\n1 to create user\n2 to login\n3 to exit '))
-        
-    def show_profiles(control_user):
-
-        displayed_user = profiles_catalog[randint(0, len(profiles_catalog))]
-        
-        user_like_answer = input(f'{displayed_user} \n\nDo you like user above? Y/N ').lower()
-
-        if user_like_answer == 'y':
-            like_profile(control_user, displayed_user)
-        
-        else:
-            show_profiles(control_user)
-
-    def like_profile(control_user, displayed_user):
+        displayed_user = profiles_catalog[randint(len(profiles_catalog) - 1)]
+            
+        return displayed_user
+    
+    def main_like_profile(control_user, displayed_user):
         
         liking_user = control_user
         liked_user = displayed_user
         
-        liking_user.like_profile(liked_user)
+        liking_user.model_like_profile(liking_user, liked_user)
         print('User liked!')
 
     def check_match(control_user, displayed_user):
@@ -109,35 +87,55 @@ def main():
         control_user_password = input('Your password: ')
 
         for x in profiles_catalog:
-            if x.name == control_user:
-                if x.password == control_user_password:
-                    print('Login succed')
-                    act1 = 3
 
+            if x.name == control_user:
+
+                if x.password == control_user_password:
+
+                    control_user = x
+                    print('Login succeeded')
+                    act1 = 3
                 else:
-                    print('Wrong password.')
-                    act1 == 2
-            else:
-                print("User doesn't exist")
-                act1 == 2
+                    print('Information doesnt match.')
     
     # --- Show profiles ---
     while act1 == 3:
+
+        displayed_user = show_random_profile()
+
+        user_like_answer = input(f'{displayed_user} \n\nDo you like user above? Y/N \n\nYour answer: ' ).lower()
+
+        if user_like_answer == 'y':
+
+            main_like_profile(control_user, displayed_user)
+            
+            print(f'You liked: {displayed_user.name}')
+
+            check_match(control_user, displayed_user)
+
+        elif user_like_answer == 'n':
+            act1 = 3
         
-        for x in profiles_catalog:
-            print(str(x))
+        else:
+            act2 = input('1 - See matches\n2 - Settings\n3 - to EXIT \nYour answer: ')
 
-            act2 = input(f'Did you like {x.name}? Y/N').lower()
+            if act2 == '1':
+                see_matches(control_user)
 
-            if act2 == 'y':
-                like_profile(control_user, x)
-                show_profiles(control_user)
+            elif act2 == '2':
+                pass
+
+            elif act2 == '3':
+                print('Goodbye, cruel world')
+                exit()
+
             else:
-                show_profiles(control_user)
+                pass
+
         
     # --- Exit ---
     while act1 == 4:
         exit()
 
 if __name__ == '__main__':
-    main()
+    controller()

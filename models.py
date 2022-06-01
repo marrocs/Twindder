@@ -1,6 +1,6 @@
 from atexit import register
 from random import randint
-import main
+import controller
 
 cont = 1
 
@@ -36,9 +36,9 @@ class User:
         return self.liked
 
     @call_liked_list.setter
-    def like_person(self, displayed_user) -> None:
-        self.liked.append(displayed_user)
-        return f'{displayed_user.name} got liked'
+    def model_like_profile(self, liked_user) -> None:
+        self.liked.append(liked_user)
+        return f'{liked_user.name} got liked'
 
     def see_matches(self) -> None:
         return self.matches

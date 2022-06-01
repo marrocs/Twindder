@@ -1,0 +1,13 @@
+ideia:
+    
+    escrever um app tipo tinder consumindo api 
+    de perfis do twitter;
+
+    O usuario deve estar logado no twitter para acessar
+    a ferramenta. Nela, podera ver resumo de perfis 
+    que tiverem acessado a ferramenta e decidir se curte
+    o perfil ou não;
+
+    Para cada usuário que entrar sera criado um objeto
+    usuario que deve poder ver curtir ou não um outro
+    usuario;
