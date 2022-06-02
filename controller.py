@@ -1,20 +1,19 @@
-from ast import Break
 from models import *
 import json
 
 # --- to do: change 'profiles_catalog' data set from list to dict? --- 
 profiles_catalog = []
 
-def controller():
+def main():
 
     def create_user(name, password) -> str:
 
         user = User(name, password)
-        print(f'(l.11) TESTE: perfil número {user.registry} criado com o nome de {user.name} e password {user.password}.')
+        print(f'(l.11) TEST: perfil número {user.registry} criado com o nome de {user.name} e password {user.password}.')
         profiles_catalog.append(user)
 
         print("perfil criado com sucesso!")
-        print(f'(l.15) TESTE: total de usuarios na lista: {len(profiles_catalog)} usuarios')
+        print(f'(l.15) TEST: total de usuarios na lista: {len(profiles_catalog)} usuarios')
 
         return user
     
@@ -23,7 +22,7 @@ def controller():
         
     def show_random_profile():
 
-        displayed_user = profiles_catalog[randint(len(profiles_catalog) - 1)]
+        displayed_user = profiles_catalog[randint(0, len(profiles_catalog) - 1)]
             
         return displayed_user
     
@@ -32,7 +31,7 @@ def controller():
         liking_user = control_user
         liked_user = displayed_user
         
-        liking_user.model_like_profile(liking_user, liked_user)
+        liking_user.model_like_profile = liked_user  # That line of code was breaking. Dude 'Oli' at StackO solved it
         print('User liked!')
 
     def check_match(control_user, displayed_user):
@@ -57,7 +56,7 @@ def controller():
         if alpha == 'y':
             
             # --- for tests ---
-            with open('C:\\Users\\Lucas\\Documents\\LUCAS\programacao\\python\\meus_projetos\\FreteDatingApp\\tests\\data.json', 'r', encoding='utf-8') as data:
+            with open('C:\\Users\\Lucas\\Documents\\LUCAS\programacao\\python\\meus_projetos\\twindder\\tests\\data.json', 'r', encoding='utf-8') as data:
                 dt = json.load(data)
                 
                 for x in dt:
@@ -131,11 +130,10 @@ def controller():
 
             else:
                 pass
-
-        
+            
     # --- Exit ---
     while act1 == 4:
         exit()
 
 if __name__ == '__main__':
-    controller()
+    main()
