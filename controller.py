@@ -1,3 +1,4 @@
+from random import randint
 from models import *
 import json
 
@@ -6,6 +7,7 @@ profiles_catalog = []
 
 def main():
 
+    # --- 'create user' function. Take no argument and get from user 'username' and 'password' to instantiate a User object, than append it to 'profiles_catalog'
     def create_user(name, password) -> str:
 
         user = User(name, password)
@@ -17,13 +19,14 @@ def main():
 
         return user
     
+    # --- 'login' function. Takes 'username' and 'password' and check it is the same as in 'profile_catalog' TO BE implemented
     def login(name, password):
         pass
         
     def show_random_profile():
 
         displayed_user = profiles_catalog[randint(0, len(profiles_catalog) - 1)]
-            
+
         return displayed_user
     
     def main_like_profile(control_user, displayed_user):
@@ -67,70 +70,75 @@ def main():
 
                     print(username, user_password)
 
-                    user = create_user(str(username), str(user_password))
+                    user = create_user(str(username).lower(), str(user_password))
 
                     print(f"Perfil número {user.registry} criado: {user.name}")
             
-            act1 = int(input('Type: \n1 to create user\n2 to login\n3 to exit '))
+            act1 = int(input('Type: \n1 to create user\n2 to login\n3 to exit \nYour answer: '))
         
         else:
             # --- for production ---
             name, password = input('What is your name: '), input('type your password: ')
             create_user(name, password)
-            act1 = int(input('Type: \n1 to create user\n2 to login\n3 to exit'))
+            act1 = int(input('Type: \n1 to create user\n2 to login\n3 to exit \nYour answer: '))
 
     # --- Login ---
     while act1 == 2:
         
-        control_user = input('Enter your name: ').lower()
+        control_user = input('Enter your name: ').lower().strip()
         control_user_password = input('Your password: ')
 
-        for x in profiles_catalog:
+        for profile in profiles_catalog:
 
-            if x.name == control_user:
+            if profile.name == control_user:
 
-                if x.password == control_user_password:
+                if profile.password == control_user_password:
 
-                    control_user = x
+                    control_user = profile
                     print('Login succeeded')
                     act1 = 3
                 else:
-                    print('Information doesnt match.')
+                    print('password doesnt match.')
+            else:
+                print('user not found')
     
     # --- Show profiles ---
     while act1 == 3:
 
         displayed_user = show_random_profile()
 
-        user_like_answer = input(f'{displayed_user} \n\nDo you like user above? Y/N \n\nYour answer: ' ).lower()
-
-        if user_like_answer == 'y':
-
-            main_like_profile(control_user, displayed_user)
-            
-            print(f'You liked: {displayed_user.name}')
-
-            check_match(control_user, displayed_user)
-
-        elif user_like_answer == 'n':
+        if displayed_user['name'] == control_user:
             act1 = 3
-        
+
         else:
-            act2 = input('1 - See matches\n2 - Settings\n3 - to EXIT \nYour answer: ')
+            user_like_answer = input(f'{displayed_user} \n\nDo you like user above? Yes / No / Else \n\nYour answer: ' ).lower()
 
-            if act2 == '1':
-                see_matches(control_user)
+            if user_like_answer == 'y' or user_like_answer == 'yes':
 
-            elif act2 == '2':
-                pass
+                main_like_profile(control_user, displayed_user)
+                
+                print(f'You liked: {displayed_user.name}')
 
-            elif act2 == '3':
-                print('Goodbye, cruel world')
-                exit()
+                check_match(control_user, displayed_user)
 
-            else:
-                pass
+            elif user_like_answer == 'n' or user_like_answer == 'no':
+                act1 = 3
             
+            else:
+                act2 = input('1 - See matches\n2 - Show profiles\n3 - Settings\n4 - to exit to main\nYour answer: ')
+
+                if act2 == '1':
+                    see_matches(control_user)
+
+                elif act2 == '2':
+                    show_random_profile()
+
+                elif act2 == '4':
+                    main()
+
+                else:
+                    pass
+
     # --- Exit ---
     while act1 == 4:
         exit()

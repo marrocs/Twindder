@@ -39,3 +39,9 @@ Modificações:
         1 - Alteração no loop for de 'login()'. Implementada busca por index no array 'profiles_catalog';
         2 - Funções de 'operators_functions' foram integradas ao arquivo 'main' ou à classe User;
         3 - Deletado o arquivo 'operators_functions';
+
+(09/06/22)
+Modificações:
+        1 - Integrar com BD;
+        2 - Desenvolver GUI;
+        3 - Usuário não deve ver o próprio perfil
