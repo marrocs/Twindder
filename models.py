@@ -1,7 +1,3 @@
-from atexit import register
-from random import randint
-import controller
-
 cont = 1
 
 class User:
