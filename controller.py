@@ -1,3 +1,13 @@
+'''
+Functionalities:
+    1) Login - OK
+    2) See Users - OK
+    3) Like User - OK
+    4) Check for match - OK
+    5) Send messages - TODO
+    6) Retrieve data from Twitter - TODO
+'''
+
 from random import randint
 from models import *
 import json
@@ -11,11 +21,10 @@ def main():
     def create_user(name, password) -> str:
 
         user = User(name, password)
-        print(f'(l.11) TEST: perfil número {user.registry} criado com o nome de {user.name} e password {user.password}.')
+
         profiles_catalog.append(user)
 
         print("perfil criado com sucesso!")
-        print(f'(l.15) TEST: total de usuarios na lista: {len(profiles_catalog)} usuarios')
 
         return user
     
@@ -41,46 +50,42 @@ def main():
         
         if control_user in displayed_user.liked:
             if displayed_user in control_user.liked:
-                displayed_user.matches.append(control_user)
-                control_user.matches.append(displayed_user)
+                displayed_user.matchs.append(control_user)
+                control_user.matchs.append(displayed_user)
                 print(f'You and {displayed_user.name} like each other. Go talk (: ')
     
-    def see_matches(control_user):
-        print(control_user.see_matches())
+    def see_matchs(control_user):
+        print(control_user.see_matchs())
 
     
-    act1 = int(input('Type: \n1 to create user\n2 to login\n3 to exit \nYour answer: '))
+    act1 = int(input('Press: \n1 to create user\n2 to login\n3 to exit \nYour answer: '))
 
     # --- Create user ---
     while act1 == 1:
 
         alpha = input('is this test?')
 
+        # --- uncomment for tests ---
         if alpha == 'y':
             
-            # --- for tests ---
             with open('C:\\Users\\Lucas\\Documents\\LUCAS\programacao\\python\\meus_projetos\\twindder\\tests\\data.json', 'r', encoding='utf-8') as data:
                 dt = json.load(data)
                 
                 for x in dt:
-                    print('\n', x, '\n')
-
                     username = x['nome']
                     user_password = x['cpf']
-
-                    print(username, user_password)
 
                     user = create_user(str(username).lower(), str(user_password))
 
                     print(f"Perfil número {user.registry} criado: {user.name}")
             
-            act1 = int(input('Type: \n1 to create user\n2 to login\n3 to exit \nYour answer: '))
+            act1 = int(input('Press: \n1 to create user\n2 to login\n3 to exit \nYour answer: '))
         
+        # --- for production ---
         else:
-            # --- for production ---
             name, password = input('What is your name: '), input('type your password: ')
             create_user(name, password)
-            act1 = int(input('Type: \n1 to create user\n2 to login\n3 to exit \nYour answer: '))
+            act1 = int(input('Press: \n1 to create user\n2 to login\n3 to exit \nYour answer: '))
 
     # --- Login ---
     while act1 == 2:
@@ -107,9 +112,15 @@ def main():
 
         displayed_user = show_random_profile()
 
-        if displayed_user['name'] == control_user:
+        # --- prevent user to see itself ---
+        if displayed_user == control_user:
             act1 = 3
-
+        
+        # --- prevent user to see others users already liked --- 
+        elif displayed_user in control_user.liked:
+            act1 = 3
+        
+        # --- show all others --- 
         else:
             user_like_answer = input(f'{displayed_user} \n\nDo you like user above? Yes / No / Else \n\nYour answer: ' ).lower()
 
@@ -117,7 +128,7 @@ def main():
 
                 main_like_profile(control_user, displayed_user)
                 
-                print(f'You liked: {displayed_user.name}')
+                print(f'You liked: {displayed_user.name}')  # remove line for production
 
                 check_match(control_user, displayed_user)
 
@@ -125,11 +136,24 @@ def main():
                 act1 = 3
             
             else:
-                act2 = input('1 - See matches\n2 - Show profiles\n3 - Settings\n4 - to exit to main\nYour answer: ')
+                act2 = input('1 - See matchs\n2 - Show profiles\n3 - Settings\n4 - to exit to main\nYour answer: ')
 
                 if act2 == '1':
-                    see_matches(control_user)
+                    see_matchs(control_user)
 
+                    act3 = input('Type the id of user you want to talk, or "no" to return: ')
+                    
+                    # --- problems in section below. Script doesnt find user by it registry
+                    if act3 == 'no' or act3 == 'n':
+                        act2 = input('1 - See matchs\n2 - Show profiles\n3 - Settings\n4 - to exit to main\nYour answer: ')
+                    else:
+                        for num, lkd in enumerate(control_user.liked):
+                            if (num + 1) == int(act3):
+                                control_user.send_message(control_user, control_user.liked[int(act3)])
+                            else:
+                                print('User nor found!')
+                                act3 = input('Type the id of user you want to talk, or "no" to return: ')
+                    
                 elif act2 == '2':
                     show_random_profile()
 

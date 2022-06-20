@@ -1,31 +1,21 @@
 Frete dating_app v.1 notes
 
-    (31/12/21)
-    Problems:
-        1 - Difficult to work with classes. How to add profiles to a 'liked list users'?
-            I've created a method called 'like person' that should take only one argument ('profile'),
-            but in fact it requires two ('self' and 'profile') and idk how to solve this.
+(11/06/22)
+Resoluções:
+        1 - Usuario não vê mais o próprio perfil
+Modificações:
+        1 - Alterar a forma como os usuários são exibidos (exibir apenas nome)
+        2 - Impedir usuario de dar like 2x no mesmo perfil
 
-            I thought one way i could handle this is create a list of dictionary using a counter
-            as key and others infos as values.
+----------------------------------------------------------------------------------------------
 
-        2 - How to check for matching users?
+(09/06/22)
+Modificações:
+        1 - Integrar com BD;
+        2 - Desenvolver GUI;
+        3 - Usuário não deve ver o próprio perfil
 
-    Improvings:
-        1 - Login system
-        2 - DataBase implementation
-
-(21/02/22)
-Problems:
-        1 - "  File "c:\Users\Lucas\Documents\LUCAS\SOFTWARES\CODIGOS\PYTHON\FreteDatingApp\main.py", line 33, in <module>
-    main()
-  File "c:\Users\Lucas\Documents\LUCAS\SOFTWARES\CODIGOS\PYTHON\FreteDatingApp\main.py", line 20, in main
-    User.login(nome, senha)
-  File "c:\Users\Lucas\Documents\LUCAS\SOFTWARES\CODIGOS\PYTHON\FreteDatingApp\class_user.py", line 27, in login
-    if nome == main.profiles_catalog.user.nome:
-AttributeError: 'list' object has no attribute 'user'"
-
-        Como lidar? o objeto 'profile_catalog' não tem atributo 'user'
+----------------------------------------------------------------------------------------------
 
 (22/02/22)
 Problemas:
@@ -40,8 +30,33 @@ Modificações:
         2 - Funções de 'operators_functions' foram integradas ao arquivo 'main' ou à classe User;
         3 - Deletado o arquivo 'operators_functions';
 
-(09/06/22)
-Modificações:
-        1 - Integrar com BD;
-        2 - Desenvolver GUI;
-        3 - Usuário não deve ver o próprio perfil
+----------------------------------------------------------------------------------------------
+
+(21/02/22)
+Problems:
+        1 - "  File "c:\Users\Lucas\Documents\LUCAS\SOFTWARES\CODIGOS\PYTHON\FreteDatingApp\main.py", line 33, in <module>
+    main()
+  File "c:\Users\Lucas\Documents\LUCAS\SOFTWARES\CODIGOS\PYTHON\FreteDatingApp\main.py", line 20, in main
+    User.login(nome, senha)
+  File "c:\Users\Lucas\Documents\LUCAS\SOFTWARES\CODIGOS\PYTHON\FreteDatingApp\class_user.py", line 27, in login
+    if nome == main.profiles_catalog.user.nome:
+AttributeError: 'list' object has no attribute 'user'"
+
+        Como lidar? o objeto 'profile_catalog' não tem atributo 'user'
+
+----------------------------------------------------------------------------------------------
+
+(31/12/21)
+Problems:
+        1 - Difficult to work with classes. How to add profiles to a 'liked list users'?
+            I've created a method called 'like person' that should take only one argument ('profile'),
+            but in fact it requires two ('self' and 'profile') and idk how to solve this.
+
+            I thought one way i could handle this is create a list of dictionary using a counter
+            as key and others infos as values.
+
+        2 - How to check for matching users?
+
+    Improvings:
+        1 - Login system
+        2 - DataBase implementation
